@@ -15,16 +15,16 @@ st.sidebar.markdown("""
 
 data_source = st.sidebar.selectbox("Select data to visualize",
                                    ['Use demo data set', 'Upload data'])
-col1, col2 = st.columns(2)
+
 if data_source == 'Use demo data set':
     gapmider = px.data.gapminder()
     df = gapmider.query('year > 2000')
     # df = pd.read_csv('demo_data.csv')
-    with col1: st.markdown("""
-    <h1 style='text-align: center;'>Demo Data set</h1>
+    st.markdown("""
+    <h1 style='text-align: left;'>Demo Data set</h1>
     """, unsafe_allow_html=True)
 
-    with col1: st.write(df)
+    st.write(df)
 
 elif data_source == "Upload data":
     uploaded_file = st.sidebar.file_uploader(label='Upload your CSV or Excel files',
@@ -32,13 +32,13 @@ elif data_source == "Upload data":
     if uploaded_file:
         try:
             df = pd.read_csv(uploaded_file)
-            with col1: st.markdown("""
-            <h1 style='text-align: center;'>Uploaded Data Set</h1>
+            st.markdown("""
+            <h1 style='text-align: left;'>Uploaded Data Set</h1>
             """, unsafe_allow_html=True)
-            with col1: st.write(df)
+            st.write(df)
         except Exception as err:
             df = pd.read_excel(uploaded_file)
-            with col1: st.write(df)
+            st.write(df)
 
 # Selection of chart type for visualization
 try:
@@ -59,11 +59,11 @@ try:
                         #  x=height,
                          x=x_axis)
         # ax.scatter(df[x_axis], df[y_axis])
-        with col2: st.markdown("""
-    <h1 style='text-align: center;'>Chart</h1>
+        st.markdown("""
+    <h1 style='text-align: left;'>Chart</h1>
     """, unsafe_allow_html=True)
 
-        with col2: st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
     if chart_type == 'Pie chart':
         nominal_variables = []
@@ -74,11 +74,11 @@ try:
         fig = px.pie(df,
                     names=names)
         # ax.scatter(df[x_axis], df[y_axis])
-        with col2: st.markdown("""
-    <h1 style='text-align: center;'>Chart</h1>
+        st.markdown("""
+    <h1 style='text-align: left;'>Chart</h1>
     """, unsafe_allow_html=True)
 
-        with col2: st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
 
     if chart_type == 'Scatter plot':
@@ -98,10 +98,10 @@ try:
                          y=y_axis,
                          color=legend)
         # ax.scatter(df[x_axis], df[y_axis])
-        with col2: st.markdown("""
-    <h1 style='text-align: center;'>Chart</h1>
+        st.markdown("""
+    <h1 style='text-align: left;'>Chart</h1>
     """, unsafe_allow_html=True)
-        with col2: st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
     if chart_type == 'Histogram':
         variables = []
@@ -114,10 +114,10 @@ try:
         fig = px.histogram(df,
                       x=x_axis)
         
-        with col2: st.markdown("""
-    <h1 style='text-align: center;'>Chart</h1>
+        st.markdown("""
+    <h1 style='text-align: left;'>Chart</h1>
     """, unsafe_allow_html=True)
-        with col2: st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
         
 except Exception as err:
